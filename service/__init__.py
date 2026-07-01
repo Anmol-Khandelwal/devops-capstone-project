@@ -1,5 +1,7 @@
 import os
 from flask import Flask
+from flask_talisman import Talisman
+from flask_cors import CORS
 from service.models import db
 
 app = Flask(__name__)
@@ -9,6 +11,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+talisman = Talisman(app, force_https=False)
+cors = CORS(app)
 
 from service import routes  # noqa: E402, F401
 
